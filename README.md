@@ -9,11 +9,10 @@ Welcome to my GitHub profile! I'm Darrel Pol, a passionate software developer wi
 I have a solid background in backend development, software architecture, and big data processing. My tech stack includes:
 
 - JavaScript/TypeScript with Node.js
-- React for dynamic frontend development
+- React or Angular for dynamic frontend development
 - Kafka for asynchronous communication
-- Angular for frontend development
 - GraphQL for efficient backend APIs
-- Databases like PostgreSQL, Couchbase, MongoDB, and ClickHouse
+- Databases like PostgreSQL, Couchbase, MongoDB and MSSQL
 - Kubernetes for container orchestration
 - Prometheus & Grafana for monitoring
 - DataDog for tracing and observability
