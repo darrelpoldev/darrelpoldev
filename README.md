@@ -24,6 +24,6 @@ I've had the privilege of working for leading companies in the tech industry, in
 
 ## 📫 Let's Connect!
 
-Feel free to explore my repositories and don't hesitate to connect with me on [LinkedIn](YOUR_LINKEDIN_PROFILE_URL) for collaboration or just a friendly chat!
+Feel free to explore my repositories and don't hesitate to connect with me on [LinkedIn](https://www.linkedin.com/in/darrelpol/) for collaboration or just a friendly chat!
 
 Thanks for stopping by! 🚀
