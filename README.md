@@ -1,6 +1,6 @@
 # Hi there, I'm Darrel Pol! 👋
 
-👨‍💻 Software Developer | 🌐 Software Architect | 📈 Tech Enthusiast
+👨‍💻 Software Engineer | 🌐 Software Architect 
 
 Welcome to my GitHub profile! I'm Darrel Pol, a passionate software developer with over 10 years of experience. Originally from the Philippines, I migrated to Canada in 2018, and I've been contributing to the world of technology ever since.
 
@@ -12,7 +12,7 @@ I have a solid background in backend development, software architecture, and big
 - React or Angular for dynamic frontend development
 - Kafka for asynchronous communication
 - GraphQL for efficient backend APIs
-- Databases like PostgreSQL, Couchbase, MongoDB and MSSQL
+- Databases like PostgreSQL, MongoDB and MSSQL
 - Kubernetes for container orchestration
 - Prometheus & Grafana for monitoring
 - DataDog for tracing and observability
