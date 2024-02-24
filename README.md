@@ -2,7 +2,7 @@
 
 👨‍💻 Software Engineer | 🌐 Software Architect 
 
-Welcome to my GitHub profile! I'm Darrel Pol, a passionate software developer with over 10 years of experience. Originally from the Philippines, I migrated to Canada in 2018, and I've been contributing to the world of technology ever since.
+Welcome to my GitHub profile! I'm Darrel Pol, an experienced Software Engineer. 
 
 ## 🔧 Technologies & Tools
 
