@@ -1,0 +1,18 @@
+{
+  "name": "react-playground-app-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/react-playground-app-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/react-playground-app-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "react-playground-app:serve"
+      }
+    }
+  },
+  "implicitDependencies": ["react-playground-app"],
+  "tags": []
+}
