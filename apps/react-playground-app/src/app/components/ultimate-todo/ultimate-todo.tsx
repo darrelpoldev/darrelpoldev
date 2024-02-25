@@ -51,7 +51,7 @@ export function UltimateTodo(props: UltimateTodoProps) {
     <div className={styles['container']}>
       <div>
         {
-          //  TODO: Make a new form for this
+          //  TODO: Make a new component for the form
         }
         <form onSubmit={handleSubmit}>
           <div>
@@ -77,6 +77,9 @@ export function UltimateTodo(props: UltimateTodoProps) {
       </div>
       <hr></hr>
       <div>
+        {
+          // TODO: Create a new component for the list of TODOs
+        }
         <h1>Todo List:</h1>
         {todoList.length > 0 && (
           <table style={{ borderBlockStyle: 'solid' }}>
