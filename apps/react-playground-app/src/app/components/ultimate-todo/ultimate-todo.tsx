@@ -27,7 +27,14 @@ export function UltimateTodo(props: UltimateTodoProps) {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (title !== '' && description !== '') {
-      alert(`${randomId()} - ${title} - ${description}`);
+      const newTodo: Todo = {
+        id: randomId(),
+        title: title,
+        description: description,
+      };
+      setTodoList((prevState) => {
+        return [...prevState, newTodo];
+      });
     } else {
       alert('Please add a title and a description ');
     }
