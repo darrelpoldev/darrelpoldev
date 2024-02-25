@@ -50,7 +50,9 @@ export function UltimateTodo(props: UltimateTodoProps) {
   return (
     <div className={styles['container']}>
       <div>
-        /** TODO: Make a new form for this */
+        {
+          //  TODO: Make a new form for this
+        }
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="todo-title">Title: </label>
