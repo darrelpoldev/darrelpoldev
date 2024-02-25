@@ -9,6 +9,7 @@ export interface Todo {
   title: string;
   description: string;
 }
+//  TODO: Create a context for this list
 const todoInitialState: Todo[] = [
   {
     id: 123,
@@ -17,15 +18,18 @@ const todoInitialState: Todo[] = [
   },
 ];
 
+//  TODO: Create a simple hook as a helper?
 const randomId = () => Math.floor(Math.random() * 9999);
 
 export function UltimateTodo(props: UltimateTodoProps) {
+  //  TODO: Convert this to a reducer and add `dateAdded` column
   const [todoList, setTodoList] = useState(todoInitialState);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    //  TODO: Use Yup validation?
     if (title !== '' && description !== '') {
       const newTodo: Todo = {
         id: randomId(),
@@ -35,6 +39,7 @@ export function UltimateTodo(props: UltimateTodoProps) {
       setTodoList((prevState) => {
         return [...prevState, newTodo];
       });
+      //  TODO: Use Formik????
       setTitle('');
       setDescription('');
     } else {
@@ -45,6 +50,7 @@ export function UltimateTodo(props: UltimateTodoProps) {
   return (
     <div className={styles['container']}>
       <div>
+        /** TODO: Make a new form for this */
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="todo-title">Title: </label>
