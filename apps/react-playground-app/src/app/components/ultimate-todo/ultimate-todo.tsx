@@ -70,15 +70,22 @@ export function UltimateTodo(props: UltimateTodoProps) {
       <hr></hr>
       <div>
         <h1>Todo List:</h1>
-        {todoList.map((todo) => {
-          return (
-            <div key={todo.id}>
-              <p>
-                <b>{todo.title}</b> - {todo.description}
-              </p>
-            </div>
-          );
-        })}
+        {todoList.length > 0 && (
+          <table style={{ borderBlockStyle: 'solid' }}>
+            <tbody>
+              {todoList.map((todo) => {
+                return (
+                  <tr key={todo.id}>
+                    <td style={{ padding: '10px' }}>
+                      <b>{todo.title}</b>
+                    </td>
+                    <td>{todo.description}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
