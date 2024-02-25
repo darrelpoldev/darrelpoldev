@@ -35,6 +35,8 @@ export function UltimateTodo(props: UltimateTodoProps) {
       setTodoList((prevState) => {
         return [...prevState, newTodo];
       });
+      setTitle('');
+      setDescription('');
     } else {
       alert('Please add a title and a description ');
     }
@@ -50,6 +52,7 @@ export function UltimateTodo(props: UltimateTodoProps) {
               name="todo-title"
               id="todo-title"
               onChange={(e) => setTitle(e.target.value)}
+              value={title}
             />
           </div>
           <div>
@@ -58,6 +61,7 @@ export function UltimateTodo(props: UltimateTodoProps) {
               name="todo-description"
               id="todo-description"
               onChange={(e) => setDescription(e.target.value)}
+              value={description}
             />
           </div>
           <button type="submit">Add todo</button>
