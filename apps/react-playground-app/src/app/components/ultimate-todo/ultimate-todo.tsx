@@ -26,32 +26,65 @@ export function UltimateTodo(props: UltimateTodoProps) {
   const [todoList, setTodoList] = useState(todoInitialState);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [itemIdToEdit, setItemIdToEdit] = useState(0);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    //  TODO: Use Yup validation?
-    if (title !== '' && description !== '') {
-      const newTodo: Todo = {
-        id: randomId(),
-        title: title,
-        description: description,
-      };
+    // TODO: Refactor this as well
+    if (itemIdToEdit) {
       setTodoList((prevState) => {
-        return [...prevState, newTodo];
+        const indexOfItemToBeDeleted = prevState.findIndex(
+          (todo) => todo.id === itemIdToEdit
+        );
+
+        if (indexOfItemToBeDeleted !== -1) {
+          const updatedTodoList = [...prevState];
+          updatedTodoList[indexOfItemToBeDeleted].description = description;
+          updatedTodoList[indexOfItemToBeDeleted].title = title;
+          return updatedTodoList;
+        }
+        return prevState;
       });
-      //  TODO: Use Formik????
       setTitle('');
       setDescription('');
+      setItemIdToEdit(0);
+      alert('Item updated!');
     } else {
-      alert('Please add a title and a description ');
+      //  TODO: Use Yup validation?
+      if (title !== '' && description !== '') {
+        const newTodo: Todo = {
+          id: randomId(),
+          title: title,
+          description: description,
+        };
+        setTodoList((prevState) => {
+          return [...prevState, newTodo];
+        });
+        //  TODO: Use Formik????
+        setTitle('');
+        setDescription('');
+      } else {
+        alert('Please add a title and a description ');
+      }
     }
   };
 
+  //  TODO: Refactor this
   const handleRemove = (todoId: number) => {
     setTodoList((prevState) => {
       const newList = prevState.filter((todo) => todo.id !== todoId);
       return [...newList];
     });
+  };
+
+  //  TODO: Refactor this
+  const handleEdit = (todoId: number) => {
+    const selectedItem = todoList.find((todo) => todo.id === todoId);
+    if (selectedItem) {
+      setTitle(selectedItem.title);
+      setDescription(selectedItem.description);
+      setItemIdToEdit(selectedItem.id);
+    }
   };
 
   return (
@@ -79,7 +112,9 @@ export function UltimateTodo(props: UltimateTodoProps) {
               value={description}
             />
           </div>
-          <button type="submit">Add todo</button>
+          <button type="submit">
+            {itemIdToEdit !== 0 ? 'Update' : 'Add todo'}
+          </button>
         </form>
       </div>
       <hr></hr>
@@ -113,7 +148,12 @@ export function UltimateTodo(props: UltimateTodoProps) {
                     </td>
                     <td>{todo.description}</td>
                     <td>
-                      <button>Edit</button>
+                      <button
+                        hidden={itemIdToEdit != 0}
+                        onClick={() => handleEdit(todo.id)}
+                      >
+                        Edit
+                      </button>
                     </td>
                   </tr>
                 );
