@@ -90,6 +90,14 @@ export function UltimateTodo(props: UltimateTodoProps) {
         <h1>Todo List:</h1>
         {todoList.length > 0 && (
           <table style={{ borderBlockStyle: 'solid' }}>
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
             <tbody>
               {todoList.map((todo) => {
                 return (
