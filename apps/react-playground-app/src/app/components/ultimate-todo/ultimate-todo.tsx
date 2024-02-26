@@ -47,6 +47,13 @@ export function UltimateTodo(props: UltimateTodoProps) {
     }
   };
 
+  const handleRemove = (todoId: number) => {
+    setTodoList((prevState) => {
+      const newList = prevState.filter((todo) => todo.id !== todoId);
+      return [...newList];
+    });
+  };
+
   return (
     <div className={styles['container']}>
       <div>
@@ -87,16 +94,26 @@ export function UltimateTodo(props: UltimateTodoProps) {
               {todoList.map((todo) => {
                 return (
                   <tr key={todo.id}>
+                    <td>
+                      <input
+                        onClick={() => handleRemove(todo.id)}
+                        type="checkbox"
+                      />
+                    </td>
                     <td style={{ padding: '10px' }}>
                       <b>{todo.title}</b>
                     </td>
                     <td>{todo.description}</td>
+                    <td>
+                      <button>Edit</button>
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         )}
+        {todoList.length == 0 && <h3>All done for today!</h3>}
       </div>
     </div>
   );
