@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './ultimate-todo.module.css';
 import TodoTable from '../TodoTable/todo-table/todo-table';
+import AddTodo from '../add-todo/add-todo/add-todo';
 
 /* eslint-disable-next-line */
 export interface UltimateTodoProps {}
@@ -90,34 +91,14 @@ export function UltimateTodo(props: UltimateTodoProps) {
 
   return (
     <div className={styles['container']}>
-      <div>
-        {
-          //  TODO: Make a new component for the form
-        }
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="todo-title">Title: </label>
-            <input
-              name="todo-title"
-              id="todo-title"
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-            />
-          </div>
-          <div>
-            <label htmlFor="todo-description">Description: </label>
-            <textarea
-              name="todo-description"
-              id="todo-description"
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}
-            />
-          </div>
-          <button type="submit">
-            {itemIdToEdit !== 0 ? 'Update' : 'Add todo'}
-          </button>
-        </form>
-      </div>
+      <AddTodo
+        handleSubmit={handleSubmit}
+        itemIdToEdit={itemIdToEdit}
+        title={title}
+        description={description}
+        setDescription={setDescription}
+        setTitle={setTitle}
+      />
       <hr></hr>
       <TodoTable
         todoList={todoList}
