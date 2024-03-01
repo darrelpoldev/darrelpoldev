@@ -31,22 +31,16 @@ export function UltimateTodo(props: UltimateTodoProps) {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (itemIdToEdit) {
-      // setTodoList((prevState) => {
-      //   const indexOfItemToBeDeleted = prevState.findIndex(
-      //     (todo) => todo.id === itemIdToEdit
-      //   );
-      //   if (indexOfItemToBeDeleted !== -1) {
-      //     const updatedTodoList = [...prevState];
-      //     updatedTodoList[indexOfItemToBeDeleted].description = description;
-      //     updatedTodoList[indexOfItemToBeDeleted].title = title;
-      //     return updatedTodoList;
-      //   }
-      //   return prevState;
-      // });
-      // setTitle('');
-      // setDescription('');
-      // setItemIdToEdit(0);
-      // alert('Item updated!');
+      const updatedTodo: Todo = {
+        id: itemIdToEdit,
+        title: title,
+        description: description,
+      };
+      dispatch({ type: 'changed', todo: updatedTodo });
+      setTitle('');
+      setDescription('');
+      setItemIdToEdit(0);
+      alert('Item updated!');
     } else {
       if (title !== '' && description !== '') {
         const newTodo: Todo = {
@@ -116,6 +110,15 @@ const todoListReducer = (todoList: Todo[], action: any) => {
           title: action.title,
         },
       ];
+    }
+    case 'changed': {
+      return todoList.map((todo) => {
+        if (todo.id === action.todo.id) {
+          return action.todo;
+        } else {
+          return todo;
+        }
+      });
     }
     case 'done': {
       return todoList.filter((todo) => todo.id !== action.id);
