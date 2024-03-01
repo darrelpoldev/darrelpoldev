@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import styles from './ultimate-todo.module.css';
 import TodoTable from '../TodoTable/todo-table/todo-table';
 import AddTodo from '../add-todo/add-todo/add-todo';
@@ -11,8 +11,8 @@ export interface Todo {
   title: string;
   description: string;
 }
-//  TODO: Create a context for this list
-const todoInitialState: Todo[] = [
+
+const initialTodoList: Todo[] = [
   {
     id: 123,
     description: 'Just another description',
@@ -20,49 +20,44 @@ const todoInitialState: Todo[] = [
   },
 ];
 
-//  TODO: Create a simple hook as a helper?
 const randomId = () => Math.floor(Math.random() * 9999);
 
 export function UltimateTodo(props: UltimateTodoProps) {
-  //  TODO: Convert this to a reducer and add `dateAdded` column
-  const [todoList, setTodoList] = useState(todoInitialState);
+  const [todoList, dispatch] = useReducer(todoListReducer, initialTodoList);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [itemIdToEdit, setItemIdToEdit] = useState(0);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // TODO: Refactor this as well
     if (itemIdToEdit) {
-      setTodoList((prevState) => {
-        const indexOfItemToBeDeleted = prevState.findIndex(
-          (todo) => todo.id === itemIdToEdit
-        );
-
-        if (indexOfItemToBeDeleted !== -1) {
-          const updatedTodoList = [...prevState];
-          updatedTodoList[indexOfItemToBeDeleted].description = description;
-          updatedTodoList[indexOfItemToBeDeleted].title = title;
-          return updatedTodoList;
-        }
-        return prevState;
-      });
-      setTitle('');
-      setDescription('');
-      setItemIdToEdit(0);
-      alert('Item updated!');
+      // setTodoList((prevState) => {
+      //   const indexOfItemToBeDeleted = prevState.findIndex(
+      //     (todo) => todo.id === itemIdToEdit
+      //   );
+      //   if (indexOfItemToBeDeleted !== -1) {
+      //     const updatedTodoList = [...prevState];
+      //     updatedTodoList[indexOfItemToBeDeleted].description = description;
+      //     updatedTodoList[indexOfItemToBeDeleted].title = title;
+      //     return updatedTodoList;
+      //   }
+      //   return prevState;
+      // });
+      // setTitle('');
+      // setDescription('');
+      // setItemIdToEdit(0);
+      // alert('Item updated!');
     } else {
-      //  TODO: Use Yup validation?
       if (title !== '' && description !== '') {
         const newTodo: Todo = {
           id: randomId(),
           title: title,
           description: description,
         };
-        setTodoList((prevState) => {
-          return [...prevState, newTodo];
+        dispatch({
+          type: 'added',
+          ...newTodo,
         });
-        //  TODO: Use Formik????
         setTitle('');
         setDescription('');
       } else {
@@ -71,15 +66,13 @@ export function UltimateTodo(props: UltimateTodoProps) {
     }
   };
 
-  //  TODO: Refactor this
   const handleRemove = (todoId: number) => {
-    setTodoList((prevState) => {
-      const newList = prevState.filter((todo) => todo.id !== todoId);
-      return [...newList];
+    dispatch({
+      type: 'done',
+      id: todoId,
     });
   };
 
-  //  TODO: Refactor this
   const handleEdit = (todoId: number) => {
     const selectedItem = todoList.find((todo) => todo.id === todoId);
     if (selectedItem) {
@@ -111,3 +104,23 @@ export function UltimateTodo(props: UltimateTodoProps) {
 }
 
 export default UltimateTodo;
+
+const todoListReducer = (todoList: Todo[], action: any) => {
+  switch (action.type) {
+    case 'added': {
+      return [
+        ...todoList,
+        {
+          id: action.id,
+          description: action.description,
+          title: action.title,
+        },
+      ];
+    }
+    case 'done': {
+      return todoList.filter((todo) => todo.id !== action.id);
+    }
+    default:
+      throw Error('Unknown action: ' + action.type);
+  }
+};
