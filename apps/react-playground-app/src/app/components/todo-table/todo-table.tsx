@@ -1,4 +1,4 @@
-import { Todo } from '../../ultimate-todo/ultimate-todo';
+import { Todo } from '../ultimate-todo/ultimate-todo';
 import styles from './todo-table.module.css';
 
 /* eslint-disable-next-line */

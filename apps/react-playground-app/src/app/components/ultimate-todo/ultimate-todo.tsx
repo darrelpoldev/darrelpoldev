@@ -1,6 +1,6 @@
 import { useReducer, useState } from 'react';
 import styles from './ultimate-todo.module.css';
-import TodoTable from '../TodoTable/todo-table/todo-table';
+import TodoTable from '../todo-table/todo-table';
 import AddTodo from '../add-todo/add-todo/add-todo';
 
 /* eslint-disable-next-line */
