@@ -2,6 +2,10 @@ import { useReducer, useState } from 'react';
 import styles from './ultimate-todo.module.css';
 import TodoTable from '../todo-table/todo-table';
 import AddTodo from '../add-todo/add-todo/add-todo';
+import {
+  useTodoList,
+  useTodoListDispatch,
+} from '../../providers/todo-list-context-provider';
 
 /* eslint-disable-next-line */
 export interface UltimateTodoProps {}
@@ -12,18 +16,11 @@ export interface Todo {
   description: string;
 }
 
-const initialTodoList: Todo[] = [
-  {
-    id: 123,
-    description: 'Just another description',
-    title: 'My first todo',
-  },
-];
-
 const randomId = () => Math.floor(Math.random() * 9999);
 
 export function UltimateTodo(props: UltimateTodoProps) {
-  const [todoList, dispatch] = useReducer(todoListReducer, initialTodoList);
+  const todoList = useTodoList();
+  const dispatch = useTodoListDispatch();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [itemIdToEdit, setItemIdToEdit] = useState(0);
@@ -50,7 +47,7 @@ export function UltimateTodo(props: UltimateTodoProps) {
         };
         dispatch({
           type: 'added',
-          ...newTodo,
+          todo: newTodo,
         });
         setTitle('');
         setDescription('');
@@ -98,32 +95,3 @@ export function UltimateTodo(props: UltimateTodoProps) {
 }
 
 export default UltimateTodo;
-
-const todoListReducer = (todoList: Todo[], action: any) => {
-  switch (action.type) {
-    case 'added': {
-      return [
-        ...todoList,
-        {
-          id: action.id,
-          description: action.description,
-          title: action.title,
-        },
-      ];
-    }
-    case 'changed': {
-      return todoList.map((todo) => {
-        if (todo.id === action.todo.id) {
-          return action.todo;
-        } else {
-          return todo;
-        }
-      });
-    }
-    case 'done': {
-      return todoList.filter((todo) => todo.id !== action.id);
-    }
-    default:
-      throw Error('Unknown action: ' + action.type);
-  }
-};

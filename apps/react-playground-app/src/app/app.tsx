@@ -3,11 +3,14 @@ import styles from './app.module.css';
 
 import { Route, Routes, Link } from 'react-router-dom';
 import { UltimateTodo } from './components/ultimate-todo/ultimate-todo';
+import { TodoListContextProvider } from './providers/todo-list-context-provider';
 export function App() {
   return (
-    <div>
-      <UltimateTodo />
-    </div>
+    <TodoListContextProvider>
+      <div>
+        <UltimateTodo />
+      </div>
+    </TodoListContextProvider>
   );
 }
 
