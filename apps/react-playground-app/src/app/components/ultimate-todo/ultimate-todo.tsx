@@ -85,7 +85,6 @@ export function UltimateTodo(props: UltimateTodoProps) {
       />
       <hr></hr>
       <TodoTable
-        todoList={todoList}
         handleEdit={handleEdit}
         handleRemove={handleRemove}
         itemIdToEdit={itemIdToEdit}

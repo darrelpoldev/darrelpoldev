@@ -1,16 +1,17 @@
+import { useTodoList } from '../../providers/todo-list-context-provider';
 import { Todo } from '../ultimate-todo/ultimate-todo';
 import styles from './todo-table.module.css';
 
 /* eslint-disable-next-line */
 export interface TodoTableProps {
-  todoList: Todo[];
   handleRemove: (todoId: number) => void;
   handleEdit: (todoId: number) => void;
   itemIdToEdit: number;
 }
 
 export function TodoTable(props: TodoTableProps) {
-  const { todoList, handleEdit, handleRemove, itemIdToEdit } = props;
+  const { handleEdit, handleRemove, itemIdToEdit } = props;
+  const todoList = useTodoList();
   return (
     <div>
       <h1>Todo List:</h1>
