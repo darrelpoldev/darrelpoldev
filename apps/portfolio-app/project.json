@@ -1,0 +1,8 @@
+{
+  "name": "portfolio-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/portfolio-app",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}

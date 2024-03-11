@@ -1,0 +1,8 @@
+{
+  "name": "portfolio-app-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/portfolio-app-e2e/src",
+  "targets": {},
+  "tags": [],
+  "implicitDependencies": ["portfolio-app"]
+}
