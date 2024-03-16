@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+
 const ProfileDetails = () => {
   return (
     <Box>
@@ -29,28 +30,28 @@ const SocialLinks = () => {
   const socialLinks = [
     {
       icon: faEnvelope,
-      url: 'mailto: poldarrel.dev@gmail.com',
+      path: 'mailto: poldarrel.dev@gmail.com',
     },
     {
       icon: faGithub,
-      url: 'https://github.com/darrelpoldev',
+      path: 'https://github.com/darrelpoldev',
     },
     {
       icon: faLinkedin,
-      url: 'https://www.linkedin.com/in/darrelpol/',
+      path: 'https://www.linkedin.com/in/darrelpol/',
     },
   ];
   return (
     <VStack align="start">
-      <Box>
-        {socialLinks.map((socials, index) => {
-          return (
-            <Link key={index} href={socials.url}>
-              <FontAwesomeIcon icon={socials.icon} />
+      {socialLinks.map((link, index) => {
+        return (
+          <Box key={index}>
+            <Link href={link.path}>
+              <FontAwesomeIcon icon={link.icon} />
             </Link>
-          );
-        })}
-      </Box>
+          </Box>
+        );
+      })}
     </VStack>
   );
 };
@@ -76,9 +77,9 @@ const InternalLinks = () => {
 
   return (
     <VStack align="start">
-      {internalLinks.map((link) => {
+      {internalLinks.map((link, index) => {
         return (
-          <Box>
+          <Box key={index}>
             <Link href={link.path}>{link.displayText}</Link>
           </Box>
         );
