@@ -14,8 +14,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { usePathname, useRouter } from 'next/navigation';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 const ProfileDetails = () => {
   return (
     <Box>
@@ -102,7 +101,7 @@ const InternalLinks: React.FC<InternalLinksProps> = (props) => {
 const About = () => {
   return (
     <Box id="about">
-      <Heading as="h2">About Blah</Heading>
+      <Text>Hey, there!</Text>
     </Box>
   );
 };
