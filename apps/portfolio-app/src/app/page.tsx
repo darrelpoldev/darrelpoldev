@@ -9,11 +9,13 @@ import {
   VStack,
   Divider,
   AbsoluteCenter,
+  Button,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-
+import { usePathname, useRouter } from 'next/navigation';
+import { Dispatch, SetStateAction, useState } from 'react';
 const ProfileDetails = () => {
   return (
     <Box>
@@ -42,7 +44,7 @@ const SocialLinks = () => {
     },
   ];
   return (
-    <VStack align="start">
+    <HStack align="start">
       {socialLinks.map((link, index) => {
         return (
           <Box key={index}>
@@ -52,25 +54,29 @@ const SocialLinks = () => {
           </Box>
         );
       })}
-    </VStack>
+    </HStack>
   );
 };
 
-const InternalLinks = () => {
+interface InternalLinksProps {
+  handleOnClick: (path: string) => void;
+}
+
+const InternalLinks: React.FC<InternalLinksProps> = (props) => {
   const internalLinks = [
     {
       displayText: 'About',
-      path: '/#about',
+      path: 'about',
       section: 'about',
     },
     {
       displayText: 'Blogs',
-      path: '/#blogs',
+      path: 'blogs',
       section: 'blogs',
     },
     {
       displayText: 'Experiences',
-      path: '/#experiences',
+      path: 'experiences',
       section: 'experiences',
     },
   ];
@@ -80,7 +86,12 @@ const InternalLinks = () => {
       {internalLinks.map((link, index) => {
         return (
           <Box key={index}>
-            <Link href={link.path}>{link.displayText}</Link>
+            <Button
+              variant="link"
+              onClick={() => props.handleOnClick(link.path)}
+            >
+              {link.displayText}
+            </Button>
           </Box>
         );
       })}
@@ -91,7 +102,7 @@ const InternalLinks = () => {
 const About = () => {
   return (
     <Box id="about">
-      <Heading as="h2">About Blah</Heading>;
+      <Heading as="h2">About Blah</Heading>
     </Box>
   );
 };
@@ -99,7 +110,7 @@ const About = () => {
 const Blogs = () => {
   return (
     <Box id="blogs">
-      <Heading as="h2">Blogs</Heading>;
+      <Heading as="h2">These are blogs</Heading>
     </Box>
   );
 };
@@ -107,12 +118,16 @@ const Blogs = () => {
 const Experiences = () => {
   return (
     <Box id="experiences">
-      <Heading as="h2">Experiences</Heading>;
+      <Heading as="h2">Experiences</Heading>
     </Box>
   );
 };
 
-export default async function Page() {
+export default function Page() {
+  const [pathToRender, setPathToRender] = useState('about');
+  const handleChangeOfPath = (path: string) => {
+    setPathToRender(path);
+  };
   return (
     <Stack
       direction={['column', 'row']}
@@ -130,12 +145,12 @@ export default async function Page() {
             Explore
           </AbsoluteCenter>
         </Box>
-        <InternalLinks></InternalLinks>
+        <InternalLinks handleOnClick={handleChangeOfPath}></InternalLinks>
       </Box>
       <Box className="right-panel">
-        <Heading>Content</Heading>
-
-        {/* This is where a scrollable page will show */}
+        {pathToRender == 'about' && <About></About>}
+        {pathToRender == 'blogs' && <Blogs></Blogs>}
+        {pathToRender == 'experiences' && <Experiences></Experiences>}
       </Box>
     </Stack>
   );
