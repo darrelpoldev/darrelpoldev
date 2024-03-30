@@ -101,7 +101,25 @@ const InternalLinks: React.FC<InternalLinksProps> = (props) => {
 const About = () => {
   return (
     <Box id="about">
-      <Text>Hey, there!</Text>
+      <Text>
+        Hey, there! Welcome to my little corner of the internet. This is where I
+        document all things I created or contributed to, to my own tech world.
+        From blogs about software architecture or system designs and tech book
+        that I've recently finished, to projects or prototypes that I've
+        created.
+      </Text>
+      <Text>
+        Aside from my day job as a software engineer, my main focus these days
+        is to skill up and build up my knowledge about Artificial Intelligence
+        or AI. I've been playing around different AI models and building
+        prototypes, and also started writing tech blogs hoping to help a fellow
+        learner of the future.
+      </Text>
+      <Text>
+        When I'm not in front of the computer screen, I'm probably working out
+        or walking outside. I might be also reading a manga on my phone or
+        probably watching anime in the basement.
+      </Text>
     </Box>
   );
 };
