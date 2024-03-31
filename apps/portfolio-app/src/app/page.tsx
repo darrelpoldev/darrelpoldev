@@ -14,6 +14,8 @@ import {
   Flex,
   Center,
   SimpleGrid,
+  Avatar,
+  Image,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +23,16 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { useState } from 'react';
 const ProfileDetails = () => {
   return (
-    <Box p={5} textAlign={'center'} alignItems={'baseline'}>
+    <Box p={5} textAlign={'center'} alignItems={'center'}>
+      <Center>
+        <Image
+          borderRadius={'full'}
+          boxSize={'250px'}
+          alt="darrel-pol"
+          src="/avatar.jpg"
+        />
+      </Center>
+
       <Heading as="h1" size={'4xl'} noOfLines={1} mb={1}>
         Darrel Pol
       </Heading>
