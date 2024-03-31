@@ -21,13 +21,13 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { useState } from 'react';
 const ProfileDetails = () => {
   return (
-    <Box paddingLeft={10} textAlign={'start'}>
-      <Heading as="h1" size={'xl'} noOfLines={1} mb={1}>
+    <Box p={5} textAlign={'center'} alignItems={'baseline'}>
+      <Heading as="h1" size={'4xl'} noOfLines={1} mb={1}>
         Darrel Pol
       </Heading>
-      <Heading as="h2" size={'lg'} mb={4}>
+      <Text fontWeight={500} fontSize={'3xl'} mb={2}>
         Experienced Software Engineer
-      </Heading>
+      </Text>
       <Text fontSize={'2xl'} noOfLines={3}>
         Welcome to my documentation space. I build code and write tech blogs.
       </Text>
