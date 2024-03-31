@@ -10,6 +10,10 @@ import {
   Divider,
   AbsoluteCenter,
   Button,
+  Container,
+  Flex,
+  Center,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -17,12 +21,16 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { useState } from 'react';
 const ProfileDetails = () => {
   return (
-    <Box>
-      <Heading as="h2" size="3xl" noOfLines={1}>
+    <Box paddingLeft={10} textAlign={'start'}>
+      <Heading as="h1" size={'xl'} noOfLines={1} mb={1}>
         Darrel Pol
       </Heading>
-      <Text fontSize="3xl">Experienced Software Engineer</Text>
-      <Text fontSize="xl">Welcome to my documentation space.</Text>
+      <Heading as="h2" size={'lg'} mb={4}>
+        Experienced Software Engineer
+      </Heading>
+      <Text fontSize={'2xl'} noOfLines={3}>
+        Welcome to my documentation space. I build code and write tech blogs.
+      </Text>
     </Box>
   );
 };
@@ -146,29 +154,16 @@ export default function Page() {
     setPathToRender(path);
   };
   return (
-    <Stack
-      direction={['column', 'row']}
-      spacing={4}
-      align="center"
-      justify="center"
-      height="50vh"
-    >
-      <Box className="left-panel">
-        <ProfileDetails></ProfileDetails>
-        <SocialLinks></SocialLinks>
-        <Box position="relative" padding="4">
-          <Divider />
-          <AbsoluteCenter bg="white" px="2">
-            Explore
-          </AbsoluteCenter>
-        </Box>
-        <InternalLinks handleOnClick={handleChangeOfPath}></InternalLinks>
+    <SimpleGrid minChildWidth={'300px'} bg={'gray.200'}>
+      <Box bg={'white'} minHeight={'100vh'} border={'1px solid'}>
+        <Center h={'100%'}>
+          <VStack align={'start'}>
+            <ProfileDetails></ProfileDetails>
+            <SocialLinks></SocialLinks>
+          </VStack>
+        </Center>
       </Box>
-      <Box className="right-panel">
-        {pathToRender == 'about' && <About></About>}
-        {pathToRender == 'blogs' && <Blogs></Blogs>}
-        {pathToRender == 'experiences' && <Experiences></Experiences>}
-      </Box>
-    </Stack>
+      <Box bg={'black'} minHeight={'100vh'} border={'1px solid'}></Box>
+    </SimpleGrid>
   );
 }
