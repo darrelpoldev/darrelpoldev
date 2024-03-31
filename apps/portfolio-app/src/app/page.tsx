@@ -2,19 +2,13 @@
 import { Link } from '@chakra-ui/next-js';
 import {
   Box,
-  Stack,
   Heading,
   Text,
   HStack,
   VStack,
-  Divider,
-  AbsoluteCenter,
   Button,
-  Container,
-  Flex,
   Center,
   SimpleGrid,
-  Avatar,
   Image,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -65,9 +59,9 @@ const SocialLinks = () => {
     <HStack align="start">
       {socialLinks.map((link, index) => {
         return (
-          <Box key={index}>
-            <Link href={link.path}>
-              <FontAwesomeIcon icon={link.icon} />
+          <Box key={index} alignContent={'center'} textAlign={'center'}>
+            <Link textAlign={'center'} href={link.path}>
+              <FontAwesomeIcon icon={link.icon} size="2xl" />
             </Link>
           </Box>
         );
@@ -168,7 +162,7 @@ export default function Page() {
     <SimpleGrid minChildWidth={'300px'} bg={'gray.200'}>
       <Box bg={'white'} minHeight={'100vh'} border={'1px solid'}>
         <Center h={'100%'}>
-          <VStack align={'start'}>
+          <VStack align={'center'}>
             <ProfileDetails></ProfileDetails>
             <SocialLinks></SocialLinks>
           </VStack>
