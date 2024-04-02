@@ -59,7 +59,7 @@ const SocialLinks = () => {
     <HStack align="start">
       {socialLinks.map((link, index) => {
         return (
-          <Box key={index} alignContent={'center'} textAlign={'center'}>
+          <Box key={index} alignContent={'center'} textAlign={'center'} pr={3}>
             <Link textAlign={'center'} href={link.path}>
               <FontAwesomeIcon icon={link.icon} size="2xl" />
             </Link>
@@ -113,26 +113,38 @@ const InternalLinks: React.FC<InternalLinksProps> = (props) => {
 
 const About = () => {
   return (
-    <Box id="about">
-      <Text>
-        Hey, there! Welcome to my little corner of the internet. This is where I
-        document all things I created or contributed to, to my own tech world.
-        From blogs about software architecture or system designs and tech book
-        that I've recently finished, to projects or prototypes that I've
-        created.
-      </Text>
-      <Text>
-        Aside from my day job as a software engineer, my main focus these days
-        is to skill up and build up my knowledge about Artificial Intelligence
-        or AI. I've been playing around different AI models and building
-        prototypes, and also started writing tech blogs hoping to help a fellow
-        learner of the future.
-      </Text>
-      <Text>
-        When I'm not in front of the computer screen, I'm probably working out
-        or walking outside. I might be also reading a manga on my phone or
-        probably watching anime in the basement.
-      </Text>
+    <Box id="about" textAlign={'start'} noOfLines={10}>
+      <VStack
+        spacing={5}
+        fontStyle={'verdana'}
+        p={5}
+        fontSize={24}
+        fontWeight={400}
+      >
+        <Text>
+          Hey, there! Welcome to my little corner of the internet. This is where
+          I document all things I created or contributed to, to my own tech
+          world. From blogs about software architecture or system designs and
+          tech books that I've recently finished, to projects or prototypes that
+          I've created.
+        </Text>
+        <Text>
+          Aside from my day job as a software engineer, my main focus these days
+          is to skill up and build up my knowledge about Artificial Intelligence
+          or AI. I've been playing around different AI models and building
+          prototypes, and also started writing tech blogs hoping to help a
+          fellow learner of the future.
+        </Text>
+        <Text>
+          When I'm not in front of the computer screen, I'm probably working out
+          or walking outside. I might be also reading a manga on my phone or
+          probably watching anime in my basement.
+        </Text>
+        <Text>
+          P.S. I'm still working on this revamped version of my website for 2024
+          so this page is so limited at the moment. More stuffs are coming!
+        </Text>
+      </VStack>
     </Box>
   );
 };
@@ -168,7 +180,16 @@ export default function Page() {
           </VStack>
         </Center>
       </Box>
-      <Box bg={'black'} minHeight={'100vh'} border={'1px solid'}></Box>
+      <Box
+        textColor={'white'}
+        bg={'black'}
+        minHeight={'100vh'}
+        border={'1px solid'}
+      >
+        <Center h={'100%'}>
+          <About />
+        </Center>
+      </Box>
     </SimpleGrid>
   );
 }
