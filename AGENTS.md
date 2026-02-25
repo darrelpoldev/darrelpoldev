@@ -2,7 +2,7 @@
 
 ## Who I Am
 
-Full-stack software engineer. 12 years in the industry. I ship products end to end — from schema design to production deployment. I'm an architecture-first engineer who happens to code, not the other way around.
+Full-stack software engineer with over a decade of industry experience. I ship products end to end — from schema design to production deployment. I'm an architecture-first engineer who happens to code, not the other way around.
 
 ## Stack Defaults
 
