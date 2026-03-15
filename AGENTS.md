@@ -1,5 +1,3 @@
-# CLAUDE.md — Engineer Profile
-
 ## Who I Am
 
 Full-stack software engineer with over a decade of industry experience. I ship products end to end — from schema design to production deployment. I'm an architecture-first engineer who happens to code, not the other way around.
@@ -33,6 +31,8 @@ Full-stack software engineer with over a decade of industry experience. I ship p
 - **Separation of concerns** — decouple large domains. But don't over-separate to the point of noise.
 - **Modular monolith preferred** — only extract microservices when there's a real reason. I have Kafka/distributed systems experience but I reach for it reluctantly.
 - **Timestamps over statuses** — `activatedAt`, `deletedAt`, `completedAt` instead of boolean/enum status fields.
+- **Security first** — prioritize security over everything. Never write code that introduces risks. Flag unsafe patterns before writing them.
+- **Observability** — add logs at key decision points (service boundaries, external calls, auth, errors). Keep them minimal, structured, and never log sensitive data.
 
 ## Code Style
 
