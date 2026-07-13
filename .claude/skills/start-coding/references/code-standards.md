@@ -1,6 +1,6 @@
 # Code Standards
 
-<!-- MIRROR of skills/review-code/references/review-standards.md — any rule added here must be added there too. -->
+<!-- MIRROR of .claude/skills/review-code/references/review-standards.md — any rule added here must be added there too. -->
 
 ## Architecture & Structure
 

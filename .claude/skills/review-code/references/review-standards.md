@@ -1,6 +1,6 @@
 # Review Standards
 
-<!-- MIRROR of skills/start-coding/references/code-standards.md — any rule added here must be added there too. -->
+<!-- MIRROR of .claude/skills/start-coding/references/code-standards.md — any rule added here must be added there too. -->
 
 The criteria behind each category in `review-process.md`. Same order.
 
