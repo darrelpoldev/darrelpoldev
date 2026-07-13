@@ -10,4 +10,4 @@ description: Check that code has proper observability — logging, metrics, trac
 - Check we have proper metrics for monitoring and alerting, on the places that need it
 - Check we have proper traceability, when applicable
 - Review against `references/observability-standards.md`
-- Output: gaps found + concrete suggestions, in short digestible bullets
+- Output: gaps found + concrete suggestions

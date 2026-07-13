@@ -10,4 +10,4 @@ description: Read an existing ticket, investigate the related code, and produce 
 - If it's a bug: point out the faulty code or implementation that caused the issue
 - Identify risks in fixing the bug, based on what the investigation revealed
 - Clarify what actually needs to be done in the ticket
-- Output: a report in short, concise, digestible bullet points — never a wall of text
+- Output: a report of what the ticket is, what caused it, and what needs doing
