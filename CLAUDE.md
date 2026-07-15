@@ -9,3 +9,5 @@
 # Tool Integrations
 
 - Always use CLI over MCP for any tool. If MCP is the only option, ask for confirmation first.
+- Use the `ntn` (notion) CLI when sent a Notion link, or when searching for a ticket or ticket information.
+- Use the `gh` (GitHub) CLI for any GitHub interaction.
