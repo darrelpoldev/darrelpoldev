@@ -12,4 +12,6 @@ description: Prepare and push the change for a PR — clean commits, correct des
   - **WHY** we needed this change
   - **DEV Evidence** — placeholder for the user to attach an image or video recording
 - Make sure we're pushing to a feature branch ONLY — never main
-- Follow the repo's PR and contribution standards
+- Follow the repo's Contribution standards (if it exists)
+- DO NOT add claude code as contributor
+- ALWAYS open a PR as draft
