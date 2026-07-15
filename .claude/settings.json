@@ -1,0 +1,96 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(/bin/ls:*)",
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(file:*)",
+      "Bash(stat:*)",
+      "Bash(which:*)",
+      "Bash(pwd)",
+      "Bash(date)",
+      "Bash(echo:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(cut:*)",
+      "Bash(jq:*)",
+      "Bash(diff:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git blame:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git branch --show-current)",
+      "Bash(git remote -v)",
+      "Bash(git stash list)",
+      "Bash(command git status:*)",
+      "Bash(command git log:*)",
+      "Bash(command git diff:*)",
+      "Bash(command git show:*)",
+      "Bash(command git branch --show-current)"
+    ],
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.kube/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/**/.env*)",
+      "Read(~/**/*.pem)",
+      "Read(~/**/*.key)",
+      "Read(./**/.env*)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./.env*)",
+      "Bash(git push origin main*)",
+      "Bash(git push origin HEAD:main*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(aws * delete-*)",
+      "Bash(terraform destroy*)",
+      "Bash(cdk destroy*)",
+      "Bash(kubectl delete namespace*)",
+      "Bash(kubectl delete --all*)",
+      "Bash(rm -rf:*)",
+      "Bash(rm -fr:*)",
+      "Bash(rm -r:*)",
+      "Bash(/bin/rm:*)",
+      "Bash(command rm:*)",
+      "Bash(sudo:*)",
+      "Bash(/usr/bin/sudo:*)"
+    ]
+  },
+  "enabledPlugins": {
+    "ralph-loop@claude-plugins-official": true,
+    "warp@claude-code-warp": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
+    },
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "autoMemoryEnabled": false,
+  "skipWorkflowUsageWarning": true,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
+}
