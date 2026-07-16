@@ -6,6 +6,7 @@ description: Interview the user to turn a rough feature or piece of work into a 
 # Plan With Me
 
 - Purpose: interview the user until the requirements are actually understood — thorough, but never overwhelming
+- Runs in NORMAL mode and MUST write a file — never call EnterPlanMode; if native Plan mode is on, stop and tell the user to exit (shift+tab) first, or the write is blocked
 - Gather requirements only — the WHAT and WHY. Do NOT design the solution or decide how to build it; that's /techplan-with-me's job
 - Input can be a rough idea, a /talk-to-me dump, or an existing ticket — ticket work ALWAYS passes through here before coding
 - Interview cadence: ONE question at a time, 2 options where possible

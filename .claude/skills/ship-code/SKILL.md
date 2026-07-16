@@ -7,10 +7,12 @@ description: Prepare and push the change for a PR — clean commits, correct des
 
 - Purpose: get the change out correctly, following the PR and contribution standards
 - Break down the commits into small, reviewable changes
-- PR description format:
-  - **WHAT** changed
-  - **WHY** we needed this change
+- Branch name should follow the repo's convention, e.g. `<ticket-id>/short-description` or `<type>/short-description` (kebab-case)
+- PR description: keep it short — the PR is about the code, not the requirements. Details, rollout, and limitations belong in the ticket, not here
+  - **WHAT** — bullet points only, 1-2 short sentences each. No paragraphs
+  - **WHY** — a couple of bullet points, 1-2 short sentences. No paragraphs
   - **DEV Evidence** — placeholder for the user to attach an image or video recording
+  - Link the ticket
 - Make sure we're pushing to a feature branch ONLY — never main
 - Follow the repo's Contribution standards (if it exists)
 - DO NOT add claude code as contributor
