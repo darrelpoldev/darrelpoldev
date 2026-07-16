@@ -6,6 +6,7 @@ description: Pair with the user on the technical plan for a problem captured by 
 # Techplan With Me
 
 - Purpose: pair with the user on the technical plan — the HOW — for the problem captured by /plan-with-me, before any code is written
+- Runs in NORMAL mode and MUST write a file — never call EnterPlanMode; if native Plan mode is on, stop and tell the user to exit (shift+tab) first, or the write is blocked
 - Scope: /plan-with-me captures the WHAT and WHY (requirements); this skill works out the HOW — architecture, module boundaries, data model, interfaces, patterns. Don't re-gather requirements here
 - Precondition: a plan/spec/RFC from /plan-with-me MUST exist — a technical plan solves a planned problem, never an unplanned one
 - Listen FIRST — let the user lay out their technical plan before you say anything; NEVER open with your own ideas or information

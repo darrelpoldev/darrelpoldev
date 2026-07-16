@@ -5,28 +5,28 @@
 ## Architecture & Structure
 
 - Controller/service separation. Controllers handle HTTP and payload parsing; services hold business logic.
-- Keep the abstraction level correct. No logic leaking across domain boundaries.
+- Correct abstraction level. No logic leaking across domain boundaries.
 - Separation of concerns. Every module has one job.
 - KISS. Least complexity that still solves the problem.
 
 ## Typing & Validation
 
-- Strict typing always. Define types explicitly. Never `any`.
-- Parse with Zod at the boundary.
-- Validate inputs first, before any logic runs.
-- Code defensively where failure is expected.
+- Strict typing. Types defined explicitly. Never `any`.
+- Zod parsing at the boundary.
+- Inputs validated first, before any logic runs.
+- Defensive coding where failure is expected.
 
 ## Data Patterns
 
 - Timestamps over booleans and status columns: `activatedAt`, `deletedAt`, `completedAt`. Not `isActive`.
-- Follow the existing schema conventions.
+- Schema conventions followed consistently.
 
 ## Style
 
 - Long, descriptive names. Clarity over brevity.
-- DRY. Never duplicate logic.
-- Readable. If it needs heavy explanation, refactor it.
-- Never create comments to explain code.
-- Avoid nested loops at all cost.
+- DRY. No duplicated logic.
+- Readable. If it needs heavy explanation, it should be refactored.
+- No comments explaining what the code does.
+- No nested loops.
 
 <!-- TODO: expand — folder structure, layer conventions, error handling -->

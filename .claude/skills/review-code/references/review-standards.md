@@ -7,6 +7,13 @@ The criteria behind each category in `review-process.md`. Same order.
 If the existing codebase consistently uses a pattern that conflicts with these standards, note
 it but don't push hard. Consistency in an existing project can matter more.
 
+## Ticket Context (review-only — not mirrored to code-standards.md)
+
+- Applies only when reviewing someone else's branch/PR, not my own.
+- If the branch name, PR title, or commits reference a ticket ID, fetch that ticket first and read its description and acceptance criteria.
+- Review the implementation against the ticket, not just the code: does it do what the ticket asked, cover the acceptance criteria, and solve the stated problem?
+- If no ticket ID is found, say so and review code-only.
+
 ## Architecture & Structure
 
 - Controller/service separation. Controllers handle HTTP and payload parsing; services hold business logic.
