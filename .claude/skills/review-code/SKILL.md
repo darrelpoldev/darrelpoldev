@@ -7,8 +7,6 @@ description: Review a branch diff against the review standards — either my own
 
 - Purpose 1: review my own code, written by /start-coding
 - Purpose 2: review someone else's code — a branch or PR I checked out
-- Follow `references/review-process.md` exactly — it defines scoping, priority order, output format, and apply prompts
-- Check the code fulfills the ticket's acceptance criteria, when a ticket exists
-- Check the code follows the coding style and standards — review against `references/review-standards.md`
+- Follow `references/review-process.md` exactly — it defines diff scoping, requirements source, severity buckets, output format, and apply prompts
+- `references/review-standards.md` defines the categories and what "good" means in each. review-process.md decides what to do with them
 - Catch issues/bugs in the implementation
-- After the review, suggest /observe-code and /secure-code

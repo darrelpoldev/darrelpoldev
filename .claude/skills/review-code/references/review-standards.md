@@ -1,44 +1,81 @@
 # Review Standards
 
-<!-- MIRROR of .claude/skills/start-coding/references/code-standards.md — any rule added here must be added there too. -->
+- What "good" means, per category. This file owns the criteria and nothing else.
+- `review-process.md` owns the process: diff scoping, requirements source, severity buckets, output format. It routes these categories to severity; it doesn't redefine them. Keep routing and output rules out of this file.
+- Category names and numbers here are the source of truth.
+- Each section maps wholly to one severity bucket in `review-process.md`. A criterion that doesn't match its section's bucket belongs in a different section. Move it; don't split the bucket row.
+- Where the codebase consistently uses a pattern that conflicts with these standards, consistency can outweigh the standard. Note the conflict; don't argue it.
+- These stay generic. Stack and tool specifics — language, frameworks, logger and message format, data layer — live in the repo's CLAUDE.md. Read it, then apply these criteria through it.
 
-The criteria behind each category in `review-process.md`. Same order.
+## 1. Correctness & Bugs
 
-If the existing codebase consistently uses a pattern that conflicts with these standards, note
-it but don't push hard. Consistency in an existing project can matter more.
+- Logic does what the requirements source says it does. Trace the happy path end to end before anything else.
+- Edge cases: empty, null/undefined, zero, negative, single item, max size.
+- Off-by-one in loops, slices, ranges, pagination.
+- Async: every promise awaited, none floating, no race between a read and a later write.
+- Errors caught at a level that can actually act on them. No swallowed catch.
+- Resources cleaned up on the failure path, not just on success.
+- Nothing depends on undefined ordering: object keys, unsorted query results, parallel results.
+- New branches reachable. Flag dead ones.
+- Tests cover changed behavior, including the failure case, not just the happy path.
 
-## Ticket Context (review-only — not mirrored to code-standards.md)
+## 2. Design & Complexity
 
-- Applies only when reviewing someone else's branch/PR, not my own.
-- If the branch name, PR title, or commits reference a ticket ID, fetch that ticket first and read its description and acceptance criteria.
-- Review the implementation against the ticket, not just the code: does it do what the ticket asked, cover the acceptance criteria, and solve the stated problem?
-- If no ticket ID is found, say so and review code-only.
+- A simpler approach that meets the same requirement beats a clever one. If one exists, name it and describe its shape in a sentence or two. Don't write out the full alternative implementation.
+- Abstraction earns its keep. One caller means inline it.
+- A function does one thing. If the summary needs "and", split it.
+- No speculative generality. Built for the current requirement, not an imagined future one.
+- Responsibility sits in the right layer. No business logic in controllers, handlers, or components.
+- Data access goes through the repo's established pattern, not around it.
+- Dependencies point one direction. Flag new cycles.
+- Flag new coupling: does this force unrelated code to change later?
+- State has one owner. Flag duplicated or derived-and-stored state.
+- Public surface (exports, endpoints, types) is the smallest that works.
+- Typing: no escape hatches (`any`, casts, non-null assertions, ignore comments) without a stated reason.
+- Scrutinize hardest what's hardest to reverse: public API and endpoint shapes, database schema and migrations, data formats written to storage, anything already shipped to a consumer. Internal details are cheaper to fix later — still flag them, but spend the argument here.
 
-## Architecture & Structure
+## 3. Readability & Maintainability
 
-- Controller/service separation. Controllers handle HTTP and payload parsing; services hold business logic.
-- Correct abstraction level. No logic leaking across domain boundaries.
-- Separation of concerns. Every module has one job.
-- KISS. Least complexity that still solves the problem.
+- Names say what the thing is or does. No abbreviations that need a lookup.
+- Prefer early return over an else pyramid.
+- Comments explain why. A comment restating the code is noise.
+- No commented-out code, no leftover debug output.
+- Magic numbers and strings are named.
+- Same shape as sibling code, matching the repo's established patterns for structure, naming, and style. Someone who knows one file should be able to predict the next.
 
-## Typing & Validation
+## 4. Standards & Consistency
 
-- Strict typing. Types defined explicitly. No escape hatches from the type system.
-- Parse at the boundary with the project's schema validator.
-- Inputs validated first, before any logic runs.
-- Defensive coding where failure is expected.
+- File and folder placement follows convention.
+- Import and export style follows convention.
+- Error handling shape matches the rest of the codebase.
 
-## Data Patterns
+## 5. Security
 
-- Timestamps over booleans and status columns: `activatedAt`, `deletedAt`, `completedAt`. Not `isActive`.
-- Schema conventions followed consistently.
+- Input from outside the system is validated at the boundary, before any logic runs. Client-supplied values are never trusted.
+- Injection: parameterized queries only. No string-built SQL, shell, or HTML.
+- Every new entry point has authn and authz. Check the caller may act on *this resource*, not just that they're logged in.
+- IDOR: object IDs from the request are checked against caller ownership.
+- Secrets never in code, committed config, logs, or error messages.
+- PII, tokens, and passwords aren't logged, and aren't returned in responses that don't need them.
+- Errors returned to the client don't leak internals: stack traces, SQL, file paths.
+- New dependency: flag it unless all of these hold — it does work no stdlib or existing dependency already does, it shipped a release in the last 12 months, it carries no known unpatched advisory, and its transitive tree is small relative to the work it does. If the repo has audit tooling wired, its output settles the advisory question.
+- Default to closed. Fail secure.
 
-## Style
+## 6. Observability
 
-- Long, descriptive names. Clarity over brevity.
-- DRY. No duplicated logic.
-- Readable. If it needs heavy explanation, it should be refactored.
-- No comments explaining what the code does.
-- No nested loops.
+- Flag new code paths that can fail without emitting anything. If this breaks at 3am, what does the on-call see?
+- Log levels match severity: `info` for state changes you'd want in a post-incident timeline, `warn` for degraded but recovered, `error` for a human must act.
+- Flag miscalibration: catch blocks logging at `info`, `error` used for what nobody will page on.
+- Logs carry enough context to identify the request, user, and resource. A message with no identifiers is unactionable.
+- Flag a missing counter or timer on: new failure modes, new external calls or boundaries, retry and fallback paths.
+- Metrics and tracing only where the repo already has them wired. Don't ask for a counter in a codebase with no metrics system, or for spans in one with no tracer.
 
-<!-- TODO: expand — severity thresholds, what blocks vs what's a nit -->
+## 7. Scope Creep
+
+- Needs a requirements source. `review-process.md` defines what counts as one. With none, skip this category.
+- Every changed file traces back to a stated requirement. If one doesn't, ask why it's here.
+- Flag unrelated refactors bundled into the diff. Correct or not, they belong in their own PR.
+- Flag drive-by renames and reformatting that inflate the diff and bury the real change.
+- Flag dependencies, config, or feature flags the requirement didn't ask for.
+- Flag the inverse too: requirements with no corresponding change.
+- Raise scope creep as a question, not an accusation. The author may know something the requirements don't say.
