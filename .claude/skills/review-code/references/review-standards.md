@@ -55,6 +55,7 @@
 - Injection: parameterized queries only. No string-built SQL, shell, or HTML.
 - Every new entry point has authn and authz. Check the caller may act on *this resource*, not just that they're logged in.
 - IDOR: object IDs from the request are checked against caller ownership.
+- Public endpoints are rate limited. Flag a new one that isn't, and flag any operation whose cost a caller can drive without bound.
 - Secrets never in code, committed config, logs, or error messages.
 - PII, tokens, and passwords aren't logged, and aren't returned in responses that don't need them.
 - Errors returned to the client don't leak internals: stack traces, SQL, file paths.
