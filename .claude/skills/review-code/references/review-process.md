@@ -1,52 +1,81 @@
 # Review Process
 
-Two modes, same process: reviewing my own branch from /start-coding, or reviewing someone
-else's branch/PR I checked out. Only the origin of the code differs.
+Two modes: reviewing my own branch from /start-coding, or reviewing someone else's branch/PR I
+checked out. Same categories, same buckets, same output. They differ in two places, both handled
+below: where the code lives (mine is often still uncommitted) and where the requirements come from.
 
-## Scope
+## Diff Scope
 
-- Unless the user specifies files or code, review the full branch diff against the repo's default branch:
+- Default target: everything this branch changed that isn't on the base — committed *and* uncommitted.
 
 ```
-base=$(git symbolic-ref -q --short refs/remotes/origin/HEAD | sed 's|^origin/||')
-base=${base:-main}
-git diff "$base"...HEAD --name-only
+base=$(git symbolic-ref -q --short refs/remotes/origin/HEAD)
+base=${base:-origin/main}
+git rev-parse -q --verify "$base" >/dev/null || echo "BASE $base DOES NOT RESOLVE"
+fork=$(git merge-base "$base" HEAD)
+git diff "$fork" --name-only            # changed files, working tree included
+git ls-files --others --exclude-standard # new files not yet added
 ```
 
-- Use that file list to scope the review. Read each changed file's diff via `git diff "$base"...HEAD -- <file>`.
+- Diff from the merge base against the working tree, not `"$base"...HEAD`. The three-dot form stops at the last commit and silently returns nothing when /start-coding left the work uncommitted.
+- Add the untracked list. A brand-new file is invisible to `git diff` until it's staged, and new files are usually the ones most worth reviewing.
+- Diff against the remote ref. A local `main` can be stale or missing entirely.
+- If the base doesn't resolve, stop and ask the user for the base ref. Don't guess and don't review against nothing.
+- Read each file's diff via `git diff "$fork" -- <file>`. Read untracked files in full.
+- Override the default only when the user names specific files, directories, or a commit range. Their list replaces the default; don't widen it back.
 - Only review what changed. Never audit untouched code.
-- When reviewing someone else's PR, the diff is the whole story. Don't assume intent that isn't in it. Ask instead.
-- Security and observability are out of scope here. /secure-code and /observe-code own those lanes.
+- When reviewing someone else's PR, the diff is the whole story. Don't assume intent that isn't in it.
 
-## Process
+## Requirements Source
 
-- Evaluate in this priority order:
-  1. **Architecture & structure**
-  2. **Typing & validation**
-  3. **Data patterns**
-  4. **Style**
-- The criteria for each category live in `references/review-standards.md`. Read it before reviewing.
-- If something is ambiguous or you'd need more context, say so instead of guessing.
-- Never suggest refactors beyond the scope of what's being reviewed.
+Establish what the change was supposed to do before judging whether it does. In order of preference:
 
-## Output Rules
+1. A ticket or plan the user names or links.
+2. The PR or branch description (`gh pr view`), or failing that, the commit messages on the branch.
+3. None available.
 
-- For each issue, show the problematic code and the suggested replacement as a diff.
-- Use this format for each item:
+- With a source, use it for the correctness trace in §1 Correctness & Bugs and for all of §7 Scope Creep.
+- With none: skip the `Out of Scope` bucket, don't flag missing requirements, and narrow §1's first bullet to what you can still check — that the code is internally consistent and does what its own names, types, and tests claim. Note the missing source in one line under `Summary`.
+- Never infer requirements from the diff and then review the diff against them. That's circular and always passes.
 
-```
+## Evaluation
+
+- Evaluate every category in `references/review-standards.md`, in the order listed there. Read that file before reviewing.
+- Before flagging a convention or a typing issue, read the repo's lint, format, and compiler configs and the CI step that runs them. What a configured rule already catches is not a review finding. Flag only the gaps.
+- Suggest a refactor only where it fixes a finding in those categories. Never for taste, and never outside the diff.
+- If a call needs context you don't have, don't guess. File it in the bucket it would land in, phrase it as a question, and prefix it `Needs context:`.
+
+## Severity Buckets
+
+Every finding goes in exactly one bucket. Section numbers refer to `references/review-standards.md`. When a finding fits two, take the more severe.
+
+| Bucket | Contents |
+|---|---|
+| **Critical** | All of §1 Correctness & Bugs. All of §5 Security. |
+| **Should Fix** | All of §2 Design & Complexity. All of §6 Observability. |
+| **Nits** | All of §3 Readability & Maintainability. All of §4 Standards & Consistency. |
+| **Out of Scope** | All of §7 Scope Creep. Omitted entirely when no requirements source exists. |
+
+- Every section routes wholly. If a criterion doesn't fit its section's bucket, it's in the wrong section: fix `review-standards.md`. Don't split a row here.
+
+## Output Format
+
+Every finding in every bucket uses the same item format:
+
+````
 - [file:line] What's wrong
   Why: <why the current code is a problem and why the change fixes it>
   ```diff
   - <current code>
   + <suggested code>
   ```
-```
+````
 
 - Keep diffs minimal. Only the affected line(s), not surrounding context.
-- If the issue is structural/architectural (no single line fix), skip the diff and describe it in one line.
+- If the issue is structural and has no single-line fix, drop the diff block. The `What's wrong` and `Why:` lines are never optional.
+- `Out of Scope` items drop the diff too, and phrase `What's wrong` as a question. Scope is the author's call.
 
-## Output Format
+Assemble the review as:
 
 ```
 # Code Review
@@ -54,14 +83,17 @@ git diff "$base"...HEAD --name-only
 ## Summary
 Brief overview of what this branch does — the intent, the flow, and what problem it solves.
 
-## Critical (bugs, correctness)
-- [file:line] What's wrong
+## Critical
+<items>
 
-## Should Fix (architecture, typing, logic)
-- [file:line] What's wrong
+## Should Fix
+<items>
 
-## Nits (style, naming, minor)
-- [file:line] What's wrong
+## Nits
+<items>
+
+## Out of Scope
+<items>
 
 ## What's Good
 - Brief callout of things done well
@@ -72,13 +104,26 @@ Brief overview of what this branch does — the intent, the flow, and what probl
 
 ## Apply Prompts
 
-After the review, generate a separate fenced `Apply Prompt` block for each section (Critical, Should Fix, Nits). Skip empty sections.
+After the review, emit one fenced block per non-empty bucket, for Critical, Should Fix, and Nits only. Each block is a standalone prompt the user can paste into a fresh session:
 
-Each prompt must:
+````
+```
+Apply Prompt — <bucket>
 
-- List every file and the specific changes to make, referencing line numbers.
-- Be imperative ("In file X at line Y, replace A with B").
-- Be copy-pasteable with zero edits needed.
-- Be self-contained. Don't reference the review output; include all context needed.
+In <file> at line <n>, replace:
+<current code>
+with:
+<suggested code>
+Reason: <one line>
 
-No apply prompt for What's Good. Nothing to change there.
+In <file> at line <n>, ...
+```
+````
+
+- Cover every item in that bucket. One entry each.
+- Be imperative and self-contained. Don't reference the review output; the prompt is read without it.
+- Copy-pasteable with zero edits needed.
+- Omit anything marked `Needs context:`. An unresolved question isn't applyable.
+- Structural findings with no diff still get an entry: describe the change in prose.
+
+No apply prompt for What's Good or Out of Scope. Nothing to change there, and scope is the author's call.
