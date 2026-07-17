@@ -7,6 +7,7 @@ description: Create, write, file, open, or make a ticket / issue / work item in 
 
 - Purpose: create individual, well-formed tickets from units of work
 - MANDATORY: whenever the user asks to create/write/file/open/make a ticket, issue, or work item, use this skill FIRST. Never create a ticket ad-hoc without this format.
+- Title: short, descriptive, specific to the unit of work
 - Use exactly 3 sections — no more:
   - **What** — needs to be done
   - **Why** — it needs to be done

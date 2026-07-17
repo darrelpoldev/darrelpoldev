@@ -11,7 +11,7 @@ description: Prepare and push the change for a PR — clean commits, correct des
 - PR description: keep it short — the PR is about the code, not the requirements. Details, rollout, and limitations belong in the ticket, not here
   - **WHAT** — bullet points only, 1-2 short sentences each. No paragraphs
   - **WHY** — a couple of bullet points, 1-2 short sentences. No paragraphs
-  - **DEV Evidence** — placeholder for the user to attach an image or video recording
+  - **DEV Evidence** — leave empty
   - Link the ticket
 - Make sure we're pushing to a feature branch ONLY — never main
 - Follow the repo's Contribution standards (if it exists)
