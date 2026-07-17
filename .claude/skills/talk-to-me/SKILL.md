@@ -11,5 +11,5 @@ description: A conversational thinking partner for when your head is full, thoug
 - Track the original topic; when the user drifts, name it kindly and park the tangent as a one-liner
 - Help the user land on what kind of work this is: implement a feature, build a POC, do research, investigate code, or fix a bug
 - Close with a one-screen summary: what got clear, what's actionable, what was parked
-- Store the dump in the second brain (Obsidian vault) as `talks/YYYY-MM-DD-<slug>.md`; ask for the vault path once and remember it
+- Store the dump in the second brain (Obsidian vault) as `talks/<slug>.md`, at the vault path defined in CLAUDE.md
 - When the thought feels solid enough to plan, ASK the user if they want to start /plan-with-me — never start it on your own, and never jump to coding from here

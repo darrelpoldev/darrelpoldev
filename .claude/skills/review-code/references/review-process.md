@@ -5,13 +5,15 @@ else's branch/PR I checked out. Only the origin of the code differs.
 
 ## Scope
 
-- Unless the user specifies files or code, review the full branch diff against main:
+- Unless the user specifies files or code, review the full branch diff against the repo's default branch:
 
 ```
-git diff main...HEAD --name-only
+base=$(git symbolic-ref -q --short refs/remotes/origin/HEAD | sed 's|^origin/||')
+base=${base:-main}
+git diff "$base"...HEAD --name-only
 ```
 
-- Use that file list to scope the review. Read each changed file's diff via `git diff main...HEAD -- <file>`.
+- Use that file list to scope the review. Read each changed file's diff via `git diff "$base"...HEAD -- <file>`.
 - Only review what changed. Never audit untouched code.
 - When reviewing someone else's PR, the diff is the whole story. Don't assume intent that isn't in it. Ask instead.
 - Security and observability are out of scope here. /secure-code and /observe-code own those lanes.

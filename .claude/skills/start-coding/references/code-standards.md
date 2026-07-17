@@ -11,8 +11,8 @@
 
 ## Typing & Validation
 
-- Strict typing. Types defined explicitly. Never `any`.
-- Zod parsing at the boundary.
+- Strict typing. Types defined explicitly. No escape hatches from the type system.
+- Parse at the boundary with the project's schema validator.
 - Inputs validated first, before any logic runs.
 - Defensive coding where failure is expected.
 
