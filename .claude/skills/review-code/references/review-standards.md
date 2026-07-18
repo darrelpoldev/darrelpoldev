@@ -17,7 +17,12 @@
 - Resources cleaned up on the failure path, not just on success.
 - Nothing depends on undefined ordering: object keys, unsorted query results, parallel results.
 - New branches reachable. Flag dead ones.
-- Tests cover changed behavior, including the failure case, not just the happy path.
+- Tests land in the same diff as the behavior they cover. Changed behavior with no test is a finding; name the uncovered cases, don't just say "add tests".
+- Every requirement in the requirements source traces to a test case. With no source, every changed behavior traces to one.
+- Tests cover the failure and error paths, not just the happy path, and the edge cases above where they apply.
+- Flag any test weakened or deleted in this diff. A failing test is information; ask why, don't accept the deletion.
+- Tests mock only boundaries — network, clock, filesystem. Flag mocks of the repo's own modules.
+- Every test can fail: flag assertion-free tests and tests that restate the implementation.
 
 ## 2. Design & Complexity
 
