@@ -38,7 +38,7 @@
 
 - Names say what the thing is or does. No abbreviations that need a lookup.
 - Prefer early return over an else pyramid.
-- Comments explain why. A comment restating the code is noise.
+- A comment is legal only when it states an undocumented vendor quirk, in one line. Flag everything else: a comment explaining the code means the code needs rewriting; a multi-line comment means it needs simplifying; a comment restating documented behavior means delete it — the docs already say it; a comment about another team's bug means it should be a ticket, not a comment.
 - No commented-out code, no leftover debug output.
 - Magic numbers and strings are named.
 - Same shape as sibling code, matching the repo's established patterns for structure, naming, and style. Someone who knows one file should be able to predict the next.
