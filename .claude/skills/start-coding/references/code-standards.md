@@ -45,7 +45,7 @@ Stop conditions — the most-skipped part of every rule above:
 
 ## Typing & Validation
 
-- Strict typing. Types defined explicitly. No escape hatches from the type system.
+- Strict typing. Types defined explicitly. No escape hatches from the type system without a stated reason — a legal one-line comment or the decisions log.
 - Parse at the boundary with the project's schema validator.
 - Inputs validated first, before any logic runs.
 - Defensive coding where failure is expected.
@@ -61,7 +61,7 @@ Stop conditions — the most-skipped part of every rule above:
 - DRY — at the third occurrence, per Abstraction above.
 - Readable. If it needs heavy explanation, it should be refactored.
 - Comments: one line, outside-our-control causes only. See Never Do.
-- No nested loops.
+- No nested loops — stricter than the nesting threshold: loops max out at one level; extract the inner loop.
 
 ## Tests
 
