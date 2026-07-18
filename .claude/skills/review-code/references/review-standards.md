@@ -22,7 +22,7 @@
 ## 2. Design & Complexity
 
 - A simpler approach that meets the same requirement beats a clever one. If one exists, name it and describe its shape in a sentence or two. Don't write out the full alternative implementation.
-- Abstraction earns its keep. One caller means inline it.
+- Abstraction earns its keep. One caller means inline it. Exception: a named sub-function extracted for length or nesting (the write-side Decidable Rules) is not abstraction — don't flag it for having one caller when the name says something real.
 - A function does one thing. If the summary needs "and", split it.
 - No speculative generality. Built for the current requirement, not an imagined future one.
 - Responsibility sits in the right layer. No business logic in controllers, handlers, or components.
@@ -38,7 +38,7 @@
 
 - Names say what the thing is or does. No abbreviations that need a lookup.
 - Prefer early return over an else pyramid.
-- Flag every comment, no exceptions. A comment is legal only as a one-line claim that the cause is outside our control: vendor quirk, imposed constraint, a bug we don't own. Verify the claim. A comment whose reason lives in the code means rewrite the code; a multi-line comment means simplify the code.
+- Flag every comment, no exceptions — including ones the decisions log discloses. The flag is a question to the user: keep or remove. A comment is legal only as a one-line claim that the cause is outside our control: vendor quirk, imposed constraint, a bug we don't own. Verify the claim. A comment whose reason lives in the code means rewrite the code; a multi-line comment means simplify the code.
 - No commented-out code, no leftover debug output.
 - Magic numbers and strings are named.
 - Same shape as sibling code, matching the repo's established patterns for structure, naming, and style. Someone who knows one file should be able to predict the next.

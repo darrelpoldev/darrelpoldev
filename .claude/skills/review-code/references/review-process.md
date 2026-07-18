@@ -30,7 +30,7 @@ git ls-files --others --exclude-standard # new files not yet added
 
 Establish what the change was supposed to do before judging whether it does. In order of preference:
 
-1. A ticket or plan the user names or links — plus the `<slug>.decisions.md` log next to the plan when one exists. The log records write-time decisions: threshold overages, convention conflicts, escape-hatch reasons, known workarounds. Don't re-flag a decision it discloses; verify the disclosure matches the code, and flag only mismatches.
+1. A ticket or plan the user names or links — plus the `<slug>.decisions.md` log next to the plan when one exists. The log records write-time decisions: threshold overages, convention conflicts, escape-hatch reasons, known workarounds. Don't re-flag a decision it discloses; verify the disclosure matches the code, and flag only mismatches. Comments are the one exception: §3 flags every comment even when the log discloses it — surface it in the review and let the user decide keep or remove. A removed comment is gone from the next diff; that's the loop closing.
 2. The PR or branch description (`gh pr view`), or failing that, the commit messages on the branch.
 3. None available.
 

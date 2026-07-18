@@ -39,6 +39,7 @@ Stop conditions — the most-skipped part of every rule above:
 - Abstract at the third occurrence, not the second. Two similar blocks are a coincidence. Three are a pattern.
 - Duplication is cheaper than the wrong abstraction. Leaving duplication costs a copy-paste. Undoing a bad abstraction costs a refactor.
 - Never abstract for a single call site. No wrapper, helper, interface, or config option for one caller.
+- Exception: a named sub-function extracted because a Decidable Rule fired — length, nesting, inner loop — is not abstraction. One caller is fine there; the stop conditions still apply.
 - No design pattern unless a Decidable Rule fired. Name the trigger in the summary; if you can't, delete the pattern.
 - Don't build for hypothetical requirements. No extension points, no "we might need" params, no generic layer over one implementation.
 - When a Decidable Rule says extract and this section says don't — this section wins. Under-abstracting is recoverable; over-abstracting entangles.
