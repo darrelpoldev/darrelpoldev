@@ -7,5 +7,6 @@ description: Test a reviewed code change against the ticket's intent — prove i
 
 - Purpose: prove the change achieves the ticket's intent, and that nothing outside it changed
 - Unit tests are not this skill's job — they land with the code in /start-coding and /review-code checks them
-- Follow `references/test-process.md` — it owns the three questions, the requirements source, scenario derivation, execution rules, and the report format
+- Follow `references/test-process.md` — it owns the three questions, the requirements source, scenario derivation, the breaking-change sweep, execution rules, and the report format
+- Every pass sweeps the diff for breaking changes — schema, API contract, validation, defaults — not just ticket scenarios
 - Output is a bullet-pointed test report in the conversation: scenarios tested with pass/fail, regression results, and what wasn't covered. No document is written.

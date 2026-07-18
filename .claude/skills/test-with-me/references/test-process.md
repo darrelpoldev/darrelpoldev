@@ -22,6 +22,17 @@ Every test pass answers all three. A pass that skips one isn't done.
 - Phrase each scenario as a user-observable behavior, not an implementation detail. For a login page: invalid emails are rejected with a validation message, a successful login redirects to the dashboard, a wrong password shows the authentication error correctly — not "the validateEmail function returns false".
 - Map the blast radius: find what else calls or consumes the changed code, and add a regression scenario for each affected path.
 
+## Breaking-Change Sweep
+
+- Blast radius from callers is not enough. Sweep the diff for contract surfaces:
+  - Data schema and migrations — existing data still loads and passes new rules
+  - API contract — removed/renamed fields, changed shapes, changed status/error codes
+  - Validation — stricter rules that now reject previously valid input
+  - Defaults, config, env vars — changed values alter existing behavior
+- Ticket scenarios come from the ticket; breaking-change scenarios come from the diff. Both are required.
+- Consumers outside the repo never show up as callers — ask the user / check the ticket for known external consumers; list unverifiable ones under Not Covered.
+- A breaking change the ticket declares is expected — test the migration path. One it doesn't declare is a FAIL.
+
 ## Executing
 
 - Pick the test surface from the ticket first: does it expect a UI change?
@@ -43,7 +54,7 @@ Delivered in the conversation at the end of the pass. Bullet points, one scenari
 # Test Report
 
 ## Summary
-One or two lines: what was tested, against which ticket, overall verdict.
+One or two lines: what was tested, against which ticket, overall verdict, and whether the change is backward compatible.
 
 ## Scenarios
 - PASS — invalid email is rejected with a validation message
