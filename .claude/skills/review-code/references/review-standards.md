@@ -4,7 +4,7 @@
 - `review-process.md` owns the process: diff scoping, requirements source, severity buckets, output format. It routes these categories to severity; it doesn't redefine them. Keep routing and output rules out of this file.
 - Category names and numbers here are the source of truth.
 - Each section maps wholly to one severity bucket in `review-process.md`. A criterion that doesn't match its section's bucket belongs in a different section. Move it; don't split the bucket row.
-- Where the codebase consistently uses a pattern that conflicts with these standards, consistency can outweigh the standard. Note the conflict; don't argue it.
+- Where the codebase consistently uses a pattern that conflicts with these standards, consistency can outweigh the standard. Note the conflict; don't argue it. A defect is not a convention: code that diverges from a broken local pattern — swallowed errors, race-prone shape — is not a finding; matching it would be.
 - These stay generic. Stack and tool specifics — language, frameworks, logger and message format, data layer — live in the repo's CLAUDE.md. Read it, then apply these criteria through it.
 
 ## 1. Correctness & Bugs
@@ -22,7 +22,7 @@
 ## 2. Design & Complexity
 
 - A simpler approach that meets the same requirement beats a clever one. If one exists, name it and describe its shape in a sentence or two. Don't write out the full alternative implementation.
-- Abstraction earns its keep. One caller means inline it.
+- Abstraction earns its keep. One caller means inline it. Exception: a named sub-function extracted for length or nesting (the write-side Decidable Rules) is not abstraction — don't flag it for having one caller when the name says something real.
 - A function does one thing. If the summary needs "and", split it.
 - No speculative generality. Built for the current requirement, not an imagined future one.
 - Responsibility sits in the right layer. No business logic in controllers, handlers, or components.
@@ -31,14 +31,14 @@
 - Flag new coupling: does this force unrelated code to change later?
 - State has one owner. Flag duplicated or derived-and-stored state.
 - Public surface (exports, endpoints, types) is the smallest that works.
-- Typing: no escape hatches (`any`, casts, non-null assertions, ignore comments) without a stated reason.
+- Typing: no escape hatches (`any`, casts, non-null assertions, ignore comments) without a stated reason — in a legal one-line comment or the decisions log.
 - Scrutinize hardest what's hardest to reverse: public API and endpoint shapes, database schema and migrations, data formats written to storage, anything already shipped to a consumer. Internal details are cheaper to fix later — still flag them, but spend the argument here.
 
 ## 3. Readability & Maintainability
 
 - Names say what the thing is or does. No abbreviations that need a lookup.
 - Prefer early return over an else pyramid.
-- Comments explain why. A comment restating the code is noise.
+- Flag every comment, no exceptions — including ones the decisions log discloses. The flag is a question to the user: keep or remove. A comment is legal only as a one-line claim that the cause is outside our control: vendor quirk, imposed constraint, a bug we don't own. Verify the claim. A comment whose reason lives in the code means rewrite the code; a multi-line comment means simplify the code.
 - No commented-out code, no leftover debug output.
 - Magic numbers and strings are named.
 - Same shape as sibling code, matching the repo's established patterns for structure, naming, and style. Someone who knows one file should be able to predict the next.

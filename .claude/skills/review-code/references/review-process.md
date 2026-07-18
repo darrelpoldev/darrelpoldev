@@ -30,9 +30,11 @@ git ls-files --others --exclude-standard # new files not yet added
 
 Establish what the change was supposed to do before judging whether it does. In order of preference:
 
-1. A ticket or plan the user names or links.
+1. A ticket or plan the user names or links — plus the `<slug>.decisions.md` log next to the plan when one exists. The log records write-time decisions: threshold overages, convention conflicts, escape-hatch reasons, known workarounds. Don't re-flag a decision it discloses; verify the disclosure matches the code, and flag only mismatches. Comments are the one exception: §3 flags every comment even when the log discloses it — surface it in the review and let the user decide keep or remove. A removed comment is gone from the next diff; that's the loop closing.
 2. The PR or branch description (`gh pr view`), or failing that, the commit messages on the branch.
 3. None available.
+
+- The decisions log sits next to the plan. If the user named only a ticket on my own branch, ask whether a plan folder exists before concluding there's no log.
 
 - With a source, use it for the correctness trace in §1 Correctness & Bugs and for all of §7 Scope Creep.
 - With none: skip the `Out of Scope` bucket, don't flag missing requirements, and narrow §1's first bullet to what you can still check — that the code is internally consistent and does what its own names, types, and tests claim. Note the missing source in one line under `Summary`.
@@ -74,6 +76,7 @@ Every finding in every bucket uses the same item format:
 - Keep diffs minimal. Only the affected line(s), not surrounding context.
 - If the issue is structural and has no single-line fix, drop the diff block. The `What's wrong` and `Why:` lines are never optional.
 - `Out of Scope` items drop the diff too, and phrase `What's wrong` as a question. Scope is the author's call.
+- Comment findings (§3) also drop the diff and phrase `What's wrong` as a question. Keep or remove is the author's call.
 
 Assemble the review as:
 
@@ -121,9 +124,11 @@ In <file> at line <n>, ...
 ````
 
 - Cover every item in that bucket. One entry each.
+- Open every block with: `Follow .claude/skills/start-coding/references/code-standards.md. Apply exactly the changes below; add nothing else — no comments, no drive-by fixes.` The applying session has no plan and no skill loaded; this line is its only guardrail.
 - Be imperative and self-contained. Don't reference the review output; the prompt is read without it.
 - Copy-pasteable with zero edits needed.
 - Omit anything marked `Needs context:`. An unresolved question isn't applyable.
+- Omit comment findings. Keep-or-remove on a comment is the author's decision, made in response to the flag — never auto-applied.
 - Structural findings with no diff still get an entry: describe the change in prose.
 
 No apply prompt for What's Good or Out of Scope. Nothing to change there, and scope is the author's call.
