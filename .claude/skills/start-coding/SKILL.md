@@ -13,5 +13,5 @@ description: Implement the requirements from a plan produced by /plan-with-me. U
 - Follow `references/coding-process.md` — it owns what happens before, during, and after writing: scope discipline, stop-and-ask, the finishing summary
 - Write code to the standards in `references/code-standards.md` — read it before writing, not after
 - Stay within the plan; park out-of-scope discoveries instead of chasing them
-- Implement in small increments; verify as you go
+- Implement in small increments; verify as you go — unit tests land in the same diff as the behavior they cover, and the full suite runs before finishing
 - Once done coding, suggest /review-code

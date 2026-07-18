@@ -67,6 +67,8 @@ Stop conditions — the most-skipped part of every rule above:
 ## Tests
 
 - Behavior change and test change land in the same diff. Not after, not "as a follow-up".
+- Cover the happy path, every failure path, and the edge cases that can occur: empty, null/undefined, zero, negative, single item, max size.
+- Every test must be able to fail. No assertion-free tests, no tests that restate the implementation.
 - Test names describe the case, not the function: `returns null when user is deactivated`, not `test getUser 2`.
 - Never weaken or delete a test to make it pass. A failing test is information. If the test looks wrong, stop and ask.
 - No tests for code you didn't touch — that's scope drift wearing a helpful hat.

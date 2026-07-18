@@ -21,6 +21,13 @@
 
 Repeated summary flags on the same rot are the signal to ticket a refactor. The codebase improves through tickets, not drive-bys.
 
+## While Writing
+
+- Unit tests are part of the implementation, not a follow-up phase. Behavior change and test change land in the same diff — `code-standards.md` Tests owns the criteria.
+- Write the test alongside the behavior it covers: happy path, failure paths, and the edge cases that can occur — empty, null/undefined, zero, negative, single item, max size.
+- Run the new tests as you write them, not in one batch at the end. A test you haven't seen fail proves nothing.
+- /test-with-me still runs after review — it proves the ticket's intent end to end and checks for regressions. It does not replace the unit tests written here.
+
 ## Scope Discipline
 
 Scope errors destroy trust and make diffs unreviewable. These outrank every style rule.
@@ -54,7 +61,8 @@ How to stop: state what you were doing, the decision you hit, the options you se
 1. Re-read the full diff, top to bottom, as a reviewer would.
 2. Check it against the scope sentence. Anything outside it comes out.
 3. Confirm Never Do: no secrets, no comments explaining code, no debug output, no invented APIs.
-4. Write the summary: what changed, why, what you deliberately didn't do, any threshold exceeded and the reason, any escape hatch and its reason, any bug spotted but left alone.
-5. Append the summary as a dated entry to the decisions log next to the plan being implemented: `<plan folder>/<slug>.decisions.md`. This is the write-time record /review-code reads so it doesn't re-flag disclosed decisions. It lives with the plan, outside the repo — the team never sees it, and it is never committed.
+4. Run the full test suite — not just the new tests. A test that should pass and doesn't is a Stop and Ask, not something to patch around.
+5. Write the summary: what changed, why, what you deliberately didn't do, the test suite result, any threshold exceeded and the reason, any escape hatch and its reason, any bug spotted but left alone.
+6. Append the summary as a dated entry to the decisions log next to the plan being implemented: `<plan folder>/<slug>.decisions.md`. This is the write-time record /review-code reads so it doesn't re-flag disclosed decisions. It lives with the plan, outside the repo — the team never sees it, and it is never committed.
 
 The summary is where the things you decided *not* to do become reviewable — which is the only reason anyone can trust the things you did.

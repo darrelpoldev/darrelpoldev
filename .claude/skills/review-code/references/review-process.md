@@ -43,6 +43,8 @@ Establish what the change was supposed to do before judging whether it does. In 
 ## Evaluation
 
 - Evaluate every category in `references/review-standards.md`, in the order listed there. Read that file before reviewing.
+- Run the repo's test suite before reading the code. A failing suite is an automatic Critical finding; continue the review, but the failure leads it.
+- If the suite can't run — no runner, missing env — say so in one line under `Summary`. Never silently skip it.
 - Before flagging a convention or a typing issue, read the repo's lint, format, and compiler configs and the CI step that runs them. What a configured rule already catches is not a review finding. Flag only the gaps.
 - Suggest a refactor only where it fixes a finding in those categories. Never for taste, and never outside the diff.
 - If a call needs context you don't have, don't guess. File it in the bucket it would land in, phrase it as a question, and prefix it `Needs context:`.
