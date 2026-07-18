@@ -26,7 +26,7 @@ Repeated summary flags on the same rot are the signal to ticket a refactor. The 
 - Unit tests are part of the implementation, not a follow-up phase. Behavior change and test change land in the same diff — `code-standards.md` Tests owns the criteria.
 - Write the test alongside the behavior it covers: happy path, failure paths, and the edge cases that can occur — empty, null/undefined, zero, negative, single item, max size.
 - Run the new tests as you write them, not in one batch at the end. A test you haven't seen fail proves nothing.
-- /test-with-me still runs after review — for e2e and regression. It does not replace the unit tests written here.
+- /test-with-me still runs after review — it proves the ticket's intent end to end and checks for regressions. It does not replace the unit tests written here.
 
 ## Scope Discipline
 
