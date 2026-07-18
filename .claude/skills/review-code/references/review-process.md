@@ -30,7 +30,7 @@ git ls-files --others --exclude-standard # new files not yet added
 
 Establish what the change was supposed to do before judging whether it does. In order of preference:
 
-1. A ticket or plan the user names or links.
+1. A ticket or plan the user names or links — plus the `<slug>.decisions.md` log next to the plan when one exists. The log records write-time decisions: threshold overages, convention conflicts, escape-hatch reasons, known workarounds. Don't re-flag a decision it discloses; verify the disclosure matches the code, and flag only mismatches.
 2. The PR or branch description (`gh pr view`), or failing that, the commit messages on the branch.
 3. None available.
 
@@ -124,6 +124,7 @@ In <file> at line <n>, ...
 - Be imperative and self-contained. Don't reference the review output; the prompt is read without it.
 - Copy-pasteable with zero edits needed.
 - Omit anything marked `Needs context:`. An unresolved question isn't applyable.
+- Omit comment findings. Keep-or-remove on a comment is the author's decision, made in response to the flag — never auto-applied.
 - Structural findings with no diff still get an entry: describe the change in prose.
 
 No apply prompt for What's Good or Out of Scope. Nothing to change there, and scope is the author's call.

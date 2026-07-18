@@ -1,6 +1,6 @@
 # Code Standards
 
-<!-- MIRROR of .claude/skills/review-code/references/review-standards.md — any rule added here must be added there too. -->
+<!-- COUNTERPART of .claude/skills/review-code/references/review-standards.md — shared criteria stay in sync; write-time thresholds and process live here only. One writes, one reviews: they must not contradict, they need not match. -->
 
 - What "good" means when writing code. This file owns the criteria; `coding-process.md` owns the process around it — scope, stop-and-ask, finishing.
 - These stay generic. Stack and tool specifics — language, frameworks, logger and message format, data layer — live in the repo's CLAUDE.md. Read it, then apply these standards through it.
@@ -27,7 +27,7 @@
 | A magic number or string appears in a condition | Name it as a constant at module scope |
 | An error is caught | Handle it meaningfully, or rethrow with added context. Log only at the layer that finally handles it. Never swallow silently. Never `catch {}` |
 | A value could be absent | Make it explicit in the type. Don't rely on `undefined` propagating |
-| You feel the need to write a comment | If the reason is in the code, rewrite — extract, rename, simplify — until it explains itself. If it's an undocumented external quirk, one line, never more (Never Do) |
+| You feel the need to write a comment | If the reason is in the code, rewrite — extract, rename, simplify — until it explains itself. If the cause is outside our control, one line, never more (Never Do) |
 
 Stop conditions — the most-skipped part of every rule above:
 
@@ -60,7 +60,7 @@ Stop conditions — the most-skipped part of every rule above:
 - Long, descriptive names. Clarity over brevity.
 - DRY — at the third occurrence, per Abstraction above.
 - Readable. If it needs heavy explanation, it should be refactored.
-- Comments: one-line undocumented-quirk context only. See Never Do.
+- Comments: one line, outside-our-control causes only. See Never Do.
 - No nested loops.
 
 ## Tests
@@ -79,6 +79,6 @@ No thresholds, no judgment calls, no exceptions.
 - Never log secrets, tokens, passwords, or full PII.
 - Never build SQL, shell commands, or HTML by string concatenation with untrusted input. Parameterize.
 - Never disable, weaken, or bypass an auth, validation, or permission check to make something work.
-- Never write a comment that explains the code. Code that can't explain itself is one of two cases: it's too complex — simplify it; or it follows an undocumented vendor quirk — and that gets one line, never more. A documented requirement gets no comment: that's just following the docs. A bug another team owns gets no comment: flag it in the summary after coding so it becomes a ticket.
+- Never write a comment that explains the code. Code that can't explain itself is one of two cases: it's too complex — simplify it; or the cause is outside our control — a vendor quirk, an imposed constraint, a workaround for a bug we don't own — and that gets one line, never more. A comment is a claim: this exists for a reason we can't fix here. /review-code flags every comment and the user decides keep or remove. A bug another team owns also goes in the decisions log so it becomes a ticket.
 - Never leave `console.log`, debugger statements, or commented-out code in a diff.
 - Never invent an API, function, flag, or config key you haven't verified exists. Unsure means check the source or docs — not guess a plausible name.

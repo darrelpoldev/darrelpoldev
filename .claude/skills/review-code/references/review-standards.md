@@ -31,14 +31,14 @@
 - Flag new coupling: does this force unrelated code to change later?
 - State has one owner. Flag duplicated or derived-and-stored state.
 - Public surface (exports, endpoints, types) is the smallest that works.
-- Typing: no escape hatches (`any`, casts, non-null assertions, ignore comments) without a stated reason.
+- Typing: no escape hatches (`any`, casts, non-null assertions, ignore comments) without a stated reason — in a legal one-line comment or the decisions log.
 - Scrutinize hardest what's hardest to reverse: public API and endpoint shapes, database schema and migrations, data formats written to storage, anything already shipped to a consumer. Internal details are cheaper to fix later — still flag them, but spend the argument here.
 
 ## 3. Readability & Maintainability
 
 - Names say what the thing is or does. No abbreviations that need a lookup.
 - Prefer early return over an else pyramid.
-- A comment is legal only when it states an undocumented vendor quirk, in one line. Flag everything else: a comment explaining the code means the code needs rewriting; a multi-line comment means it needs simplifying; a comment restating documented behavior means delete it — the docs already say it; a comment about another team's bug means it should be a ticket, not a comment.
+- Flag every comment, no exceptions, phrased as a question — keep or remove is the author's call. A comment is legal only as a one-line claim that the cause is outside our control: vendor quirk, imposed constraint, a bug we don't own. Verify the claim. A comment whose reason lives in the code means rewrite the code; a multi-line comment means simplify the code.
 - No commented-out code, no leftover debug output.
 - Magic numbers and strings are named.
 - Same shape as sibling code, matching the repo's established patterns for structure, naming, and style. Someone who knows one file should be able to predict the next.

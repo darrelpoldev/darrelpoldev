@@ -54,6 +54,7 @@ How to stop: state what you were doing, the decision you hit, the options you se
 1. Re-read the full diff, top to bottom, as a reviewer would.
 2. Check it against the scope sentence. Anything outside it comes out.
 3. Confirm Never Do: no secrets, no comments explaining code, no debug output, no invented APIs.
-4. Write the summary: what changed, why, what you deliberately didn't do, any threshold exceeded and the reason, any bug spotted but left alone.
+4. Write the summary: what changed, why, what you deliberately didn't do, any threshold exceeded and the reason, any escape hatch and its reason, any bug spotted but left alone.
+5. Append the summary as a dated entry to the decisions log next to the plan being implemented: `<plan folder>/<slug>.decisions.md`. This is the write-time record /review-code reads so it doesn't re-flag disclosed decisions. It lives with the plan, outside the repo — the team never sees it, and it is never committed.
 
 The summary is where the things you decided *not* to do become reviewable — which is the only reason anyone can trust the things you did.
